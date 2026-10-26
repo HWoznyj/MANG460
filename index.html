@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MANG 460 | Haley Woznyj | Longwood University</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Longwood Brand Tokens ── */
+    :root {
+      --lw-blue:    #00205B;   /* PMS 282 — primary Longwood Blue */
+      --lw-blue2:   #001540;   /* deeper shade for depth */
+      --lw-gray:    #A2A4A3;   /* PMS 422 — Longwood Gray */
+      --lw-teal:    #007582;   /* secondary teal from 2021 guide */
+      --lw-teal2:   #005f6a;
+      --lw-light:   #9BCBEB;   /* light blue accent */
+      --white:      #FFFFFF;
+      --off-white:  #F4F7FA;
+      --text-dark:  #0d1a2e;
+      --text-muted: #5a6a7a;
+      --radius:     14px;
+      --trans:      0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── Hero Header — the distinctive move: deep Longwood Blue with diagonal accent ── */
+    header {
+      background: var(--lw-blue);
+      position: relative;
+      overflow: hidden;
+      padding: 3.5rem 2rem 5rem;
+      text-align: center;
+    }
+
+    /* Diagonal teal slash — the signature visual element */
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: var(--off-white);
+      clip-path: polygon(0 60%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Subtle rotunda-inspired circle motif */
+    header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      border: 2px solid rgba(155,203,235,.15);
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .university-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(155,203,235,.15);
+      border: 1px solid rgba(155,203,235,.3);
+      border-radius: 999px;
+      padding: .35rem 1rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--lw-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .rotunda-icon {
+      font-size: 1rem;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      margin-bottom: .5rem;
+    }
+
+    header h1 span {
+      color: var(--lw-light);
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: var(--lw-teal);
+      color: var(--white);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      color: rgba(155,203,235,.85);
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--lw-teal);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #dde3ea;
+    }
+
+    /* ── Resource cards ── */
+    .resources {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .resource-card {
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left accent bar */
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: var(--lw-teal);
+      border-radius: 4px 0 0 4px;
+      transform: scaleY(0);
+      transition: transform var(--trans);
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,32,91,.1);
+      border-color: var(--lw-teal);
+    }
+
+    .resource-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .card-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--lw-blue), var(--lw-teal));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .card-body { flex: 1; }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: .25rem;
+    }
+
+    .card-desc {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      color: var(--lw-gray);
+      font-size: 1.2rem;
+      transition: transform var(--trans), color var(--trans);
+    }
+    .resource-card:hover .card-arrow {
+      transform: translateX(4px);
+      color: var(--lw-teal);
+    }
+
+    /* Coming soon card */
+    .resource-card.coming-soon {
+      opacity: .6;
+      cursor: default;
+      pointer-events: none;
+    }
+    .coming-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #f0f4f8;
+      color: var(--text-muted);
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      margin-left: .5rem;
+    }
+
+    /* ── About section ── */
+    .about-card {
+      background: var(--lw-blue);
+      border-radius: var(--radius);
+      padding: 2rem;
+      color: var(--white);
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lw-teal), var(--lw-light));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .about-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .25rem;
+    }
+
+    .about-body .role {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--lw-light);
+      margin-bottom: .6rem;
+    }
+
+    .about-body p {
+      font-size: .9rem;
+      color: rgba(155,203,235,.85);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+      border-top: 1px solid #e2e8f0;
+    }
+
+    footer strong { color: var(--lw-blue); }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .about-card { flex-direction: column; }
+      .resource-card { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-inner">
+      <div class="university-badge">
+        <span class="rotunda-icon">🏛️</span>
+        Longwood University
+      </div>
+      <div class="course-tag">MANG 460</div>
+      <h1>Leadership <span>Skills</span><br>Development</h1>
+      <p>Interactive tools and resources to support your growth as a leader.</p>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- Course Tools -->
+    <div class="section-label">Course Tools</div>
+    <div class="resources">
+
+      <a href="Leadership_GPS_Interactive.html" class="resource-card">
+        <div class="card-icon">🧭</div>
+        <div class="card-body">
+          <div class="card-title">Leadership GPS</div>
+          <div class="card-desc">A 4-question interactive decision tree to help you find the right leadership approach for any situation.</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <div class="resource-card coming-soon">
+        <div class="card-icon">📋</div>
+        <div class="card-body">
+          <div class="card-title">More Tools Coming Soon <span class="coming-badge">Coming Soon</span></div>
+          <div class="card-desc">Additional course resources will be added here throughout the semester.</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+    </div>
+
+    <!-- About -->
+    <div class="section-label">Your Instructor</div>
+    <div class="about-card">
+      <div class="avatar">HW</div>
+      <div class="about-body">
+        <h3>Haley Woznyj</h3>
+        <div class="role">Instructor · MANG 460</div>
+        <p>Welcome to MANG 460 — Leadership Skills Development. Use the tools above to explore and apply leadership frameworks from our course.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <strong>Longwood University</strong> &nbsp;·&nbsp; MANG 460: Leadership Skills Development &nbsp;·&nbsp; Haley Woznyj
+  </footer>
+
+</body>
+</html>
